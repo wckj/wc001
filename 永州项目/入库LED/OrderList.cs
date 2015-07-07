@@ -53,8 +53,7 @@ namespace LEDSHOW
             DataTable currentDt = ledShowBll.getRegistrationInfos("where workstate='2' and port='" + port + "'");
             if (currentDt.Rows.Count > 0)
             {
-                string billno = currentDt.Rows[0]["billno"].ToString();
-                return 200;
+                return int.Parse(currentDt.Rows[0]["quantity"].ToString()) - int.Parse(currentDt.Rows[0]["completeqty"].ToString());
             }
             else
             {
@@ -69,10 +68,12 @@ namespace LEDSHOW
         {
             RefreshData refreshData = getdatas(port, untotal);
             lbAllWaitCars.Text = refreshData.AllWaitCas.ToString();
+            int completeqty = 0;
             if (port == 1)
             {
                 lblAllCurrentQty1.Text = refreshData.Total.ToString();//入库总数
-                lblCurrentQty1.Text = refreshData.Untotal.ToString();//未入库数量   
+                lblCurrentQty1.Text = refreshData.Untotal.ToString();//未入库数量 
+                completeqty = refreshData.Total - refreshData.Untotal;
                 lbwaitcars1.Text = refreshData.UnWorktotalCars.ToString();//等待入库车辆数
                 lbcurrentstoragecar1.Text = refreshData.CurrentCarcode;//正在入库车牌号
                 lbwaitstoragecar1.Text = refreshData.WaitCarcode;//准备入库车牌号
@@ -82,14 +83,15 @@ namespace LEDSHOW
                 }
                 else
                 {
-                    progressBar1.Value = (int)(Convert.ToDouble(refreshData.Untotal) / refreshData.Total * 100);
+                    progressBar1.Value = (int)(Convert.ToDouble(completeqty) / refreshData.Total * 100);
                 }
                 lblBatchValue1.Text = progressBar1.Value.ToString() + "%";
             }
             else
             {
                 lblAllCurrentQty2.Text = refreshData.Total.ToString();//入库总数
-                lblCurrentQty2.Text = refreshData.Untotal.ToString();//未入库数量   
+                lblCurrentQty2.Text = refreshData.Untotal.ToString();//未入库数量
+                completeqty = refreshData.Total - refreshData.Untotal;
                 lbwaitcars2.Text = refreshData.UnWorktotalCars.ToString();//等待入库车辆数
                 lbcurrentstoragecar2.Text = refreshData.CurrentCarcode;//正在入库车牌号
                 lbwaitstoragecar2.Text = refreshData.WaitCarcode;//准备入库车牌号
@@ -99,7 +101,7 @@ namespace LEDSHOW
                 }
                 else
                 {
-                    progressBar2.Value = (int)(Convert.ToDouble(refreshData.Untotal) / refreshData.Total * 100);
+                    progressBar2.Value = (int)(Convert.ToDouble(completeqty) / refreshData.Total * 100);
                 }
                 lblBatchValue2.Text = progressBar2.Value.ToString() + "%";
             }

@@ -46,6 +46,12 @@ namespace LEDSHOW
                 return true;
             }
         }
+        /// <summary>
+        /// 计算等待时间
+        /// </summary>
+        /// <param name="port"></param>
+        /// <param name="unCompletenum"></param>
+        /// <returns></returns>
         public string getrate(int port, int unCompletenum)
         {
             int rate = int.Parse(bll.getParameters("where parameter_name='Rate'").Rows[0]["parameter_value"].ToString());
@@ -80,8 +86,7 @@ namespace LEDSHOW
             DataTable currentDt = bll.getRegistrationInfos("where workstate='2' and port='" + port + "'");
             if (currentDt.Rows.Count > 0)
             {
-                string billno = currentDt.Rows[0]["billno"].ToString();
-                return 200;
+                return int.Parse(currentDt.Rows[0]["quantity"].ToString())-int.Parse(currentDt.Rows[0]["completeqty"].ToString());
             }
             else
             {
