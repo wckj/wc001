@@ -184,3 +184,5 @@ E:\git\wc001mast\永州项目\液晶屏程序\obj\Debug\LEDSHOW.OrderList.resour
 E:\git\wc001mast\永州项目\液晶屏程序\obj\Debug\LEDSHOW.Properties.Resources.resources
 E:\git\wc001mast\永州项目\液晶屏程序\obj\Debug\GenerateResource.read.1.tlog
 E:\git\wc001mast\永州项目\液晶屏程序\obj\Debug\GenerateResource.write.1.tlog
+E:\git\wc001mast\永州项目\液晶屏程序\obj\Debug\Interop.SpeechLib.dll
+E:\git\wc001mast\永州项目\液晶屏程序\obj\Debug\LEDSHOW.csproj.ResolveComReference.cache

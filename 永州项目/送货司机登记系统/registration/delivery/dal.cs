@@ -101,5 +101,18 @@ namespace delivery
             }
             return state;
         }
+        /// <summary>
+        /// 更改报警次数
+        /// </summary>
+        /// <param name="requires"></param>
+        /// <returns></returns>
+        public void updateAlarmnum(string requires)
+        {
+            using (PersistentManager pm = new PersistentManager())
+            {
+                string sql = @"update  Bus_RegistrationInfo set alarmnum=1  {0}";
+                ExecuteNonQuery(string.Format(sql, requires));
+            }
+        }
     }
 }

@@ -70,16 +70,39 @@ namespace delivery
                 registrationinformation._name = "送货司机";
                 registrationinformation._state = "送货";
                 registrationinformation._memo = "";
-                registrationinformation._port = "1";
+                registrationinformation._port = "0";
                 string voices = "请" + txbcarcode.Text + "前去提交送货单！";
                 string log = "";
                 if (da.addRegistrationInfo(registrationinformation, out log))
                 {
-                    int num = da.registrationInfo("where workstate<2").Rows.Count;//未达到卸货状态的车辆数
+                    DataTable dtUnAlarmNum = da.registrationInfo("where workstate='0'");//未提交送货单车辆
+                    int num1 = da.registrationInfo("where workstate='1' and  port='1'").Rows.Count;//1号口已提交的车辆数
+                    int num2 = da.registrationInfo("where workstate='1' and  port='2'").Rows.Count;//2号口已提交的车辆数
                     int unSubmitNum = int.Parse(da.getParameters("where parameter_name='unSubmit'").Rows[0]["parameter_value"].ToString());//提交送货单条件
-                    if (num <= unSubmitNum)
+                    int alarmnum = int.Parse(da.getParameters("where parameter_name='alarmnum'").Rows[0]["parameter_value"].ToString());//报警提示次数
+                    int sum1 = unSubmitNum - num1 > 0 ? unSubmitNum - num1 : 0;//1号入库口可排队车辆数
+                    int sum2 = unSubmitNum - num2 > 0 ? unSubmitNum - num2 : 0;//2号入库口可排队车辆数
+                    if ((sum1 > 0 || sum2 > 0) && dtUnAlarmNum.Rows.Count > 0)
                     {
-                        Voice(voices);
+                        for (int i = 0; i < sum1 + sum2; i++)
+                        {
+                            if (int.Parse(dtUnAlarmNum.Rows[i]["alarmnum"].ToString()) < 1 && dtUnAlarmNum.Rows[i]["carcode"].ToString() == txbcarcode.Text)
+                            {
+                                for (int j = 0; j < alarmnum; j++)
+                                {
+                                    Voice("请'" + dtUnAlarmNum.Rows[i]["carcode"] + "'前去提交送货单");
+                                }
+                                da.updateAlarmnum("where id='" + dtUnAlarmNum.Rows[i]["id"] + "'");
+                            }
+                        }
+                    }
+                    if (num1 < unSubmitNum || num2 < unSubmitNum)
+                    {
+                        for (int i = 0; i < alarmnum; i++)
+                        {
+                            Voice(voices);
+                        }
+                        da.updateAlarmnum("where brandno='" + txbbillno .Text+ "'");
                     }
                     this.Close();
                     allinformation ower = (allinformation)this.Owner;
@@ -103,6 +126,7 @@ namespace delivery
         {
             SpeechVoiceSpeakFlags SpFlags = SpeechVoiceSpeakFlags.SVSFlagsAsync;
             SpVoice Voice = new SpVoice();
+            Voice.Rate = -5;
             Voice.Speak(voices, SpFlags);
         }
 

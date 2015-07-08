@@ -52,5 +52,20 @@ namespace LEDSHOW.BLL
                 return dao.workTaskQty(strRequires);
             }
         }
+
+        /// <summary>
+        /// 更改报警次数
+        /// </summary>
+        /// <param name="requires"></param>
+        /// <returns></returns>
+        public void updateAlarmnum(string requires)
+        {
+            using (PersistentManager pm = new PersistentManager())
+            {
+                LedShowDao dao = new LedShowDao();
+                dao.SetPersistentManager(pm);
+                dao.updateAlarmnum(requires);
+            }
+        }
     }
 }

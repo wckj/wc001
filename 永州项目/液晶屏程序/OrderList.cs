@@ -15,6 +15,8 @@ using System.Threading;
 using LEDSHOW.BLL;
 using THOK.Util;
 using LEDSHOW.Dao;
+using SpeechLib;
+using System.Diagnostics;
 
 namespace LEDSHOW
 {
@@ -30,7 +32,6 @@ namespace LEDSHOW
         {
             InitializeComponent();
             lblTimeTxt.Text = DateTime.Now.ToString();
-            Run();
         }
         /// <summary>
         /// 获取调度工作状态
@@ -92,6 +93,93 @@ namespace LEDSHOW
             {
                 return 0;
             }
+        }
+        /// <summary>
+        /// 送货单提交语音提醒
+        /// </summary>
+        public void submitVoice()
+        {
+            //有未提交送货单，1号或者2号任意一台链板机等待车辆数<2
+            DataTable dtUnAlarmNum = bll.getRegistrationInfos("where workstate='0'");//未提交送货单车辆
+            DataTable dtUnAlarmNumHand = bll.getRegistrationInfos("where workstate='0' and alarmnum=-1");//未提交送货单车辆(手动调度状态)
+            int num1 = bll.getRegistrationInfos("where workstate='1' and  port='1'").Rows.Count;//1号口已提交的车辆数
+            int num2 = bll.getRegistrationInfos("where workstate='1' and  port='2'").Rows.Count;//2号口已提交的车辆数
+            int unSubmitNum = int.Parse(bll.getParameters("where parameter_name='unSubmit'").Rows[0]["parameter_value"].ToString());//提交送货单条件
+            int alarmnum = int.Parse(bll.getParameters("where parameter_name='alarmnum'").Rows[0]["parameter_value"].ToString());//报警提示次数
+            int sum1 = unSubmitNum - num1 > 0 ? unSubmitNum - num1 : 0;//1号入库口可排队车辆数
+            int sum2 = unSubmitNum - num2 > 0 ? unSubmitNum - num2 : 0;//2号入库口可排队车辆数
+            if (dtUnAlarmNumHand.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtUnAlarmNumHand.Rows.Count; i++)
+                {
+                    for (int j = 0; j < alarmnum; j++)
+                    {
+                        Voice("请'" + dtUnAlarmNumHand.Rows[i]["carcode"] + "'前去提交送货单");
+                    }
+                    bll.updateAlarmnum("where id='" + dtUnAlarmNumHand.Rows[i]["id"] + "'");
+                }
+            }
+            else if ((sum1 > 0 || sum2 > 0) && dtUnAlarmNum.Rows.Count > 0)
+            {
+                for (int i = 0; i < sum1 + sum2; i++)
+                {
+                    if (int.Parse(dtUnAlarmNum.Rows[i]["alarmnum"].ToString()) < 1)
+                    {
+                        for (int j = 0; j < alarmnum; j++)
+                        {
+                            Voice("请'" + dtUnAlarmNum.Rows[i]["carcode"] + "'前去提交送货单");
+                        }
+                        bll.updateAlarmnum("where id='" + dtUnAlarmNum.Rows[i]["id"] + "'");
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 开始卸烟语音提醒
+        /// </summary>
+        public void workVoice(int port)
+        {
+            //已提交送货单车辆数>0，正在卸货车辆数>0正在卸货的车辆任务总量=完成量
+            DataTable dtWorkNum = bll.getRegistrationInfos("where workstate='2' and port='"+port+"'");//正在卸烟车辆
+            DataTable dtUnWorkNumAuto = bll.getRegistrationInfos("where workstate='1' and port='" + port + "' order by billno");//自动调度状态
+            DataTable dtUnWorkNumHand = bll.getRegistrationInfos("where workstate='1' and alarmnum=-1 and port='" + port + "' order by billno");//手动调度状态
+            int alarmnum = int.Parse(bll.getParameters("where parameter_name='alarmnum'").Rows[0]["parameter_value"].ToString());//报警提示次数
+            if (dtWorkNum.Rows.Count > 0)
+            {
+                if (dtUnWorkNumHand.Rows.Count > 0)
+                {
+                    if (int.Parse(dtUnWorkNumHand.Rows[0]["alarmnum"].ToString()) < 1)
+                    {
+                        for (int j = 0; j < alarmnum; j++)
+                        {
+                            Voice("请'" + dtUnWorkNumHand.Rows[0]["carcode"] + "'开车来到'" + port + "号入库口，等待卸烟");
+                        }
+                        bll.updateAlarmnum("where id='" + dtUnWorkNumHand.Rows[0]["id"] + "'");
+                    }
+                }
+            }
+            else
+            {
+                if (dtUnWorkNumAuto.Rows.Count > 0)
+                {
+                    if (int.Parse(dtUnWorkNumAuto.Rows[0]["alarmnum"].ToString()) < 1)
+                    {
+                        for (int j = 0; j < alarmnum; j++)
+                        {
+                            Voice("请'" + dtUnWorkNumAuto.Rows[0]["carcode"] + "'开车来到'" + port + "号入库口，等待卸烟");
+                        }
+                        bll.updateAlarmnum("where id='" + dtUnWorkNumAuto.Rows[0]["id"] + "'");
+                    }
+                }
+            }
+        }
+        //语音提示公共方法
+        public void Voice(string voice)
+        {
+            SpeechVoiceSpeakFlags SpFlags = SpeechVoiceSpeakFlags.SVSFlagsAsync;
+            SpVoice Voice = new SpVoice();
+            Voice.Rate = -2;
+            Voice.Speak(voice, SpFlags);
         }
         /// <summary>
         /// 工作状态展示
@@ -236,14 +324,26 @@ namespace LEDSHOW
         }
         private void Run()
         {
-            workStateShow();
-            registrationInfosShouw();
-            storageTaskShow(1);//1号链板机
-            storageTaskShow(2);//2号链板机
-            CurrentStorageTaskShow(1);
-            CurrentStorageTaskShow(2);
-            lblTimeTxt.Text = DateTime.Now.ToString();
 
+            submitVoice();//提交送货单语音提醒
+
+            workVoice(1);//1号入库口卸烟语音提醒
+
+            workVoice(2);//2号入库口卸烟语音提醒
+            registrationInfosShouw();//送货单排队信息展示
+
+            storageTaskShow(1);//1号链板机入库等待车辆信息展示
+            storageTaskShow(2);//2号链板机入库等待车辆信息展示
+
+            CurrentStorageTaskShow(1);//1号链板机当前正在入库车辆信息展示
+            CurrentStorageTaskShow(2);//2号链板机当前正在入库车辆信息展示
+
+            lblTimeTxt.Text = DateTime.Now.ToString();
+        }
+        private static void showmessage(object message)
+        {
+            string temp = (string)message;
+            Console.WriteLine(message);
         }
         private Bitmap PrintForm()
         {
@@ -376,7 +476,7 @@ namespace LEDSHOW
         {
             try
             {
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(20000);
                 this.Run();
             }
             catch (Exception ex)
