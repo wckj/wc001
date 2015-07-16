@@ -44,6 +44,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.lbno22 = new System.Windows.Forms.Label();
             this.lbno2 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -80,12 +81,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblTimeTxt = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -93,7 +95,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -227,6 +228,14 @@
             this.panel7.Size = new System.Drawing.Size(490, 180);
             this.panel7.TabIndex = 42;
             // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.lbno22);
+            this.panel9.Location = new System.Drawing.Point(3, 64);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(486, 116);
+            this.panel9.TabIndex = 46;
+            // 
             // lbno22
             // 
             this.lbno22.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -244,7 +253,7 @@
             this.lbno2.AutoSize = true;
             this.lbno2.Font = new System.Drawing.Font("华文中宋", 16F, System.Drawing.FontStyle.Bold);
             this.lbno2.ForeColor = System.Drawing.Color.Red;
-            this.lbno2.Location = new System.Drawing.Point(4, 31);
+            this.lbno2.Location = new System.Drawing.Point(4, 33);
             this.lbno2.Margin = new System.Windows.Forms.Padding(30, 15, 3, 5);
             this.lbno2.Name = "lbno2";
             this.lbno2.Size = new System.Drawing.Size(355, 25);
@@ -256,7 +265,7 @@
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("华文中宋", 18F, System.Drawing.FontStyle.Bold);
             this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(163, 4);
+            this.label18.Location = new System.Drawing.Point(163, 1);
             this.label18.Margin = new System.Windows.Forms.Padding(150, 15, 3, 5);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(137, 27);
@@ -442,7 +451,7 @@
             // 
             this.lbno1.Font = new System.Drawing.Font("华文中宋", 16F, System.Drawing.FontStyle.Bold);
             this.lbno1.ForeColor = System.Drawing.Color.Red;
-            this.lbno1.Location = new System.Drawing.Point(2, 31);
+            this.lbno1.Location = new System.Drawing.Point(2, 34);
             this.lbno1.Margin = new System.Windows.Forms.Padding(30, 15, 3, 5);
             this.lbno1.Name = "lbno1";
             this.lbno1.Size = new System.Drawing.Size(474, 25);
@@ -454,7 +463,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("华文中宋", 18F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(160, 4);
+            this.label10.Location = new System.Drawing.Point(160, 1);
             this.label10.Margin = new System.Windows.Forms.Padding(150, 15, 3, 5);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(137, 27);
@@ -671,13 +680,10 @@
             this.lblTimeTxt.Size = new System.Drawing.Size(0, 24);
             this.lblTimeTxt.TabIndex = 8;
             // 
-            // panel9
+            // timer2
             // 
-            this.panel9.Controls.Add(this.lbno22);
-            this.panel9.Location = new System.Drawing.Point(3, 64);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(486, 116);
-            this.panel9.TabIndex = 46;
+            this.timer2.Interval = 10000000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // OrderList
             // 
@@ -705,6 +711,7 @@
             this.panel5.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.panel9.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -718,7 +725,6 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -776,6 +782,7 @@
         private System.Windows.Forms.Label lbcompletetime2;
         private System.Windows.Forms.Panel panelorder1;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Timer timer2;
 
     }
 }

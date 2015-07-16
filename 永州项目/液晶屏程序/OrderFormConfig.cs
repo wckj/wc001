@@ -60,6 +60,12 @@ namespace LEDSHOW
             doc.Load(_XMLFilePath);
             return doc.GetElementsByTagName("TimerInterval").Item(0).InnerText;
         }
+        public string getTimerIntervalVoice()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(_XMLFilePath);
+            return doc.GetElementsByTagName("TimerIntervalVoice").Item(0).InnerText;
+        }
         public bool getIsSendToasynChronousScreen()
         {
             XmlDocument doc = new XmlDocument();

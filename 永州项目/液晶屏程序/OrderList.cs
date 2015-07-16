@@ -32,6 +32,7 @@ namespace LEDSHOW
         {
             InitializeComponent();
             lblTimeTxt.Text = DateTime.Now.ToString();
+            this.Run();
         }
         /// <summary>
         /// 获取调度工作状态
@@ -180,6 +181,7 @@ namespace LEDSHOW
             SpVoice Voice = new SpVoice();
             Voice.Rate = -2;
             Voice.Speak(voice, SpFlags);
+            Voice.WaitUntilDone(5000);
         }
         /// <summary>
         /// 工作状态展示
@@ -202,11 +204,11 @@ namespace LEDSHOW
         /// </summary>
         public void registrationInfosShouw()
         {
-            lbbillnolist.Text = "";
             DataTable dtAllUnSubmit = bll.getRegistrationInfos("where workstate='0' order by id");
             int unSubmit = dtAllUnSubmit.Rows.Count;
             if (unSubmit > 0)
             {
+                lbbillnolist.Text = "";
                 for (int i = 0; i < unSubmit; i++)
                 {
                     lbbillnolist.Text += dtAllUnSubmit.Rows[i]["carcode"].ToString() + "     ";
@@ -229,7 +231,6 @@ namespace LEDSHOW
             int unCompletenQty = untotal(port);
             if (port == 1)
             {
-                lbno1.Text = "";
                 lbno12.Text = "";
                 if (allSubmit > 0)
                 {
@@ -242,7 +243,6 @@ namespace LEDSHOW
                         }
                         else
                         {
-
                             lbno12.Text += dtAllSubmit.Rows[i]["carcode"].ToString() + ": 等待时间约 " + getrate(port, workTaskQty(port, dtAllSubmit.Rows[i]["id"].ToString()) + unCompletenQty) + Environment.NewLine;
                             lbno12.ForeColor = Color.Green;
                         }
@@ -256,7 +256,6 @@ namespace LEDSHOW
             }
             else
             {
-                lbno2.Text = "";
                 lbno22.Text = "";
                 if (allSubmit > 0)
                 {
@@ -325,11 +324,6 @@ namespace LEDSHOW
         private void Run()
         {
 
-            submitVoice();//提交送货单语音提醒
-
-            workVoice(1);//1号入库口卸烟语音提醒
-
-            workVoice(2);//2号入库口卸烟语音提醒
             registrationInfosShouw();//送货单排队信息展示
 
             storageTaskShow(1);//1号链板机入库等待车辆信息展示
@@ -339,6 +333,14 @@ namespace LEDSHOW
             CurrentStorageTaskShow(2);//2号链板机当前正在入库车辆信息展示
 
             lblTimeTxt.Text = DateTime.Now.ToString();
+        }
+        private void RunVoice()
+        {
+            submitVoice();//提交送货单语音提醒
+
+            workVoice(1);//1号入库口卸烟语音提醒
+
+            workVoice(2);//2号入库口卸烟语音提醒
         }
         private static void showmessage(object message)
         {
@@ -411,6 +413,7 @@ namespace LEDSHOW
             this.Height = Convert.ToInt32(config.getHeight());
             this.Width = Convert.ToInt32(config.getWidth());
             this.timer1.Interval = Convert.ToInt32(config.getTimerInterval());
+            this.timer2.Interval = Convert.ToInt32(config.getTimerIntervalVoice());
             this.IsSendToasynChronousScreen = config.getIsSendToasynChronousScreen();
 
             if (IsSendToasynChronousScreen)
@@ -437,7 +440,7 @@ namespace LEDSHOW
 
             Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
             this.timer1.Enabled = true;
-
+            this.timer2.Enabled = true;
         }
 
         void Application_ApplicationExit(object sender, EventArgs e)
@@ -476,7 +479,6 @@ namespace LEDSHOW
         {
             try
             {
-                System.Threading.Thread.Sleep(20000);
                 this.Run();
             }
             catch (Exception ex)
@@ -517,6 +519,11 @@ namespace LEDSHOW
         private void ForeShow_Click(object sender, EventArgs e)
         {
             this.Left = this._Left;
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            this.RunVoice();
         }
     }
 }

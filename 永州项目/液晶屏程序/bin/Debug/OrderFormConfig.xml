@@ -7,6 +7,7 @@
     <Width>1188</Width>
     <LeftOffset>1024</LeftOffset>
     <TimerInterval>2000</TimerInterval>
+    <TimerIntervalVoice>5000</TimerIntervalVoice>
     <IsSendToasynChronousScreen>0</IsSendToasynChronousScreen>
     <LedAddressList>0</LedAddressList>
   </OrderFormConfig>
