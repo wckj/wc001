@@ -23,16 +23,24 @@ namespace Dal.CarMain
             switch (sqlCommand)
             {
                 //未提交运货单的排队车辆
-                case "Selectstate1":
+                case "Selectstate0":
                     sql = "select carcode,address_name from V_Bus_RegistrationInfo Where workstate=0 order by daytime";
                     break;
                 //1号伸缩链板机的未卸货排队车辆
-                case "Selectstate2_1":
+                case "Selectstate1_1":
                     sql = "select carcode,address_name from V_Bus_RegistrationInfo Where workstate=1 and port=1";
                     break;
                 //2号伸缩链板机的未卸货排队车辆
-                case "Selectstate2_2":
+                case "Selectstate1_2":
                     sql = "select carcode,address_name from V_Bus_RegistrationInfo Where workstate=1 and port=2";
+                    break;
+                //1号伸缩链板机的正在卸烟车辆
+                case "Selectstate2_1":
+                    sql = "select carcode,address_name,quantity,completeqty from V_Bus_RegistrationInfo Where workstate=2 and port=1";
+                    break;
+                //2号伸缩链板机的正在卸烟车辆
+                case "Selectstate2_2":
+                    sql = "select carcode,address_name,quantity,completeqty from V_Bus_RegistrationInfo Where workstate=2 and port=2";
                     break;
                 //未卸货的总车辆车辆
                 case "Selectstate0+1":

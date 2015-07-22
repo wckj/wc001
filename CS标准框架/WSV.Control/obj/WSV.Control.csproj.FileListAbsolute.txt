@@ -1,40 +1,3 @@
-E:\程序\江苏牧羊集团\WSV.Control\bin\Debug\WSV.Control.dll
-E:\程序\江苏牧羊集团\WSV.Control\bin\Debug\WSV.Control.pdb
-E:\程序\江苏牧羊集团\WSV.Control\obj\Debug\ResolveAssemblyReference.cache
-E:\程序\江苏牧羊集团\WSV.Control\obj\Debug\WSV.Control.Properties.Resources.resources
-E:\程序\江苏牧羊集团\WSV.Control\obj\Debug\WSV.Control.csproj.GenerateResource.Cache
-E:\程序\江苏牧羊集团\WSV.Control\obj\Debug\WSV.Control.dll
-E:\程序\江苏牧羊集团\WSV.Control\obj\Debug\WSV.Control.pdb
-E:\程序\黑龙江程序\过磅程序\WSV.Control\bin\Debug\WSV.Control.dll
-E:\程序\黑龙江程序\过磅程序\WSV.Control\bin\Debug\WSV.Control.pdb
-E:\程序\黑龙江程序\过磅程序\WSV.Control\obj\Debug\ResolveAssemblyReference.cache
-E:\程序\黑龙江程序\过磅程序\WSV.Control\obj\Debug\WSV.Control.Properties.Resources.resources
-E:\程序\黑龙江程序\过磅程序\WSV.Control\obj\Debug\WSV.Control.csproj.GenerateResource.Cache
-E:\程序\黑龙江程序\过磅程序\WSV.Control\obj\Debug\WSV.Control.dll
-E:\程序\黑龙江程序\过磅程序\WSV.Control\obj\Debug\WSV.Control.pdb
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\bin\Debug\WSV.Control.dll
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\bin\Debug\WSV.Control.pdb
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\obj\Debug\ResolveAssemblyReference.cache
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\obj\Debug\WSV.Control.Properties.Resources.resources
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\obj\Debug\WSV.Control.csproj.GenerateResource.Cache
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\obj\Debug\WSV.Control.dll
-D:\程序软件\我的资料\过去的资料\过磅程序\WSV.Control\obj\Debug\WSV.Control.pdb
-D:\程序软件\程序软件\CS标准框架\WSV.Control\bin\Debug\WSV.Control.dll
-D:\程序软件\程序软件\CS标准框架\WSV.Control\bin\Debug\WSV.Control.pdb
-D:\程序软件\程序软件\CS标准框架\WSV.Control\obj\Debug\ResolveAssemblyReference.cache
-D:\程序软件\程序软件\CS标准框架\WSV.Control\obj\Debug\WSV.Control.Properties.Resources.resources
-D:\程序软件\程序软件\CS标准框架\WSV.Control\obj\Debug\WSV.Control.csproj.GenerateResource.Cache
-D:\程序软件\程序软件\CS标准框架\WSV.Control\obj\Debug\WSV.Control.dll
-D:\程序软件\程序软件\CS标准框架\WSV.Control\obj\Debug\WSV.Control.pdb
-<<<<<<< HEAD
-E:\git\wc001mast\CS标准框架\WSV.Control\bin\Debug\WSV.Control.dll
-E:\git\wc001mast\CS标准框架\WSV.Control\bin\Debug\WSV.Control.pdb
-E:\git\wc001mast\CS标准框架\WSV.Control\obj\Debug\ResolveAssemblyReference.cache
-E:\git\wc001mast\CS标准框架\WSV.Control\obj\Debug\WSV.Control.Properties.Resources.resources
-E:\git\wc001mast\CS标准框架\WSV.Control\obj\Debug\WSV.Control.csproj.GenerateResource.Cache
-E:\git\wc001mast\CS标准框架\WSV.Control\obj\Debug\WSV.Control.dll
-E:\git\wc001mast\CS标准框架\WSV.Control\obj\Debug\WSV.Control.pdb
-=======
 D:\Git\sbgl\CS标准框架\WSV.Control\bin\Debug\WSV.Control.dll
 D:\Git\sbgl\CS标准框架\WSV.Control\bin\Debug\WSV.Control.pdb
 D:\Git\sbgl\CS标准框架\WSV.Control\obj\Debug\ResolveAssemblyReference.cache
@@ -42,4 +5,3 @@ D:\Git\sbgl\CS标准框架\WSV.Control\obj\Debug\WSV.Control.Properties.Resource
 D:\Git\sbgl\CS标准框架\WSV.Control\obj\Debug\WSV.Control.csproj.GenerateResource.Cache
 D:\Git\sbgl\CS标准框架\WSV.Control\obj\Debug\WSV.Control.dll
 D:\Git\sbgl\CS标准框架\WSV.Control\obj\Debug\WSV.Control.pdb
->>>>>>> wuyanqing/master

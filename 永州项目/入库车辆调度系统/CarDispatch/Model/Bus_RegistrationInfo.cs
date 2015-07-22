@@ -7,18 +7,21 @@ namespace Model
 {
     class Bus_RegistrationInfo
     {
-        private int _id;
-        private string _name;
-        private string _brandno;
-        private string _carcode;
-        private string _phone;
-        private DateTime _daytime;
-        private string _state;
-        private string _memo;
-        private string _port;
-        private string _address_code;
-        private string _workstate;
-
+        private int _id;              //id
+        private string _name;         //司机姓名
+        private string _brandno;      //货运单号
+        private string _carcode;      //车牌号
+        private string _phone;        //司机联系电话
+        private DateTime _daytime;    //登记时间
+        private string _state;        //车辆目标
+        private string _memo;         //备注
+        private string _port;         //伸缩链板机编号
+        private string _address_code; //中烟信息编号
+        private string _workstate;    //车辆工作状态
+        private DateTime _worktime;   //入库开始时间
+        private string _billno;       //入库单
+        private int _quantity;        //入库总量
+        private int _completeqty;     //已入库量
 
         public int id
         {
@@ -75,6 +78,26 @@ namespace Model
         {
             get { return _workstate; }
             set { _workstate = value; }
+        }
+        public DateTime worktime
+        {
+            get { return _worktime; }
+            set { _worktime = value; }
+        }
+        public string billno
+        {
+            get { return _billno; }
+            set { _billno = value; }
+        }
+        public int quantity
+        {
+            get { return _quantity; }
+            set { _quantity = value; }
+        }
+        public int completeqty
+        {
+            get { return _completeqty; }
+            set { _completeqty = value; }
         }
     }
 }

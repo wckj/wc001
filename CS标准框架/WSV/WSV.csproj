@@ -549,9 +549,9 @@
     <Content Include="Resources\png-0014.png" />
     <Content Include="Resources\png-0015.png" />
     <Content Include="Resources\png-0016.png" />
+    <Content Include="Resources\Top_Pan_Left.jpg" />
     <Content Include="Resources\wucheng.ico" />
     <None Include="Resources\T_M_Voice.png" />
-    <None Include="Resources\Top_Pan_Left.jpg" />
     <None Include="Resources\T_M_Rfid.png" />
     <None Include="Resources\T_M_VCount.png" />
     <None Include="Resources\T_M_Video.png" />
